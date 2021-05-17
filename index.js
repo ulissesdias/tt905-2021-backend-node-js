@@ -7,7 +7,7 @@ var cors = require('cors');
 app.use(cors());
 
 // Porta que eu estou ouvindo
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 
 app.get('/', 
     function (req, res){    
