@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 // Permissões
 var cors = require('cors');
@@ -42,3 +43,10 @@ app.get('/mensagens/:id',
         }
     }
 )
+
+app.post('/mensagens', 
+    (req, res) => {
+        console.log(req.body.mensagem);
+        res.send("criar uma mensagem.")
+    }
+);
