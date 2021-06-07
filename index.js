@@ -80,6 +80,20 @@ const mongodb = require('mongodb')
 const password = process.env.PASSWORD || "asdf";
 console.log(password);
 
+const connectionString = `mongodb+srv://admin:${password}@cluster0.fhdc2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+const options = { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+};
+
+(async()=>{
+    const client = await mongodb.MongoClient.connect(connectionString, options);
+    const db = client.db('myFirstDatabase');
+    const mensagens = db.collection('mensagens');
+    console.log(await mensagens.find({}).toArray());
+})();
+
 /*
 
 const MongoClient = require('mongodb').MongoClient;
