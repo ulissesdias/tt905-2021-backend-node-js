@@ -71,3 +71,23 @@ app.delete('/mensagens/:id',
         res.send("Mensagem removida com sucesso");
     }
 );
+
+/*
+  Daqui para baixo, uso o banco de dados MongoDB
+*/
+
+const mongodb = require('mongodb')
+const password = process.env.PASSWORD || "asdf";
+console.log(password);
+
+/*
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://admin:<password>@cluster0.fhdc2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+*/
