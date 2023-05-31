@@ -1,13 +1,15 @@
 const express = require('express');
-//const cors = require("cors")
+const cors = require("cors")
 const app = express();
 
 app.use(express.json());
-//app.use(cors());
-app.listen( process.env.PORT ||  3000);
+app.use(cors());
+// app.listen( process.env.PORT ||  3000);
 
 
-app.get('/', function(req, res){res.send('Hello world')});
+app.get('/', function(req, res){
+    console.log("Acessando /");
+    res.send('Hello world')});
 
 /*
   Servidor propriamente dito
@@ -43,6 +45,7 @@ app.post(endpoint, (req, res) => {
     };
     notes.push(note);
     res.send("1");
+    notify(notes.length, note["title"], note["description"]);
 
 });
 
@@ -66,4 +69,23 @@ app.delete(`${endpoint}/:id`, (req, res) => {
 
 });
 
+/*
+  Parte do Socket
+*/
+let SERVER_INFORMATION = 'server_information';
 
+//app.listen(3000);
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+server.listen(process.env.PORT || 3000);
+
+function notify(noteId, title, description){
+    console.log(title);
+    io.sockets.emit(SERVER_INFORMATION,
+		    {
+			"noteId" : noteId,
+			"title" : title,
+			"description" : description
+		    }
+		   );
+}
